@@ -1,0 +1,81 @@
+import React, { useState } from 'react'
+import { StagewiseToolbar } from '@stagewise/toolbar-react'
+import ReactPlugin from '@stagewise-plugins/react'
+import { ThemeProvider } from './context/ThemeContext'
+import Header from './components/Header'
+import KPICard from './components/KPICard'
+import LeaderboardModal from './components/LeaderboardModal'
+import { mockData } from './data/mockData'
+
+function App() {
+  const [activeModal, setActiveModal] = useState(null)
+
+  const showLeaderboard = (type) => {
+    setActiveModal(type)
+  }
+
+  const closeModal = () => {
+    setActiveModal(null)
+  }
+
+  return (
+    <ThemeProvider>
+      <>
+        <div className="min-h-screen p-4">
+          <div className="container mx-auto max-w-7xl">
+            {/* Header Card */}
+            <Header />
+
+            {/* KPI Cards Container */}
+            <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+              <KPICard 
+                type="revenue"
+                data={mockData.revenue}
+                onShowLeaderboard={() => showLeaderboard('revenue')}
+              />
+              <KPICard 
+                type="investment"
+                data={mockData.investment}
+                onShowLeaderboard={() => showLeaderboard('investment')}
+              />
+              <KPICard 
+                type="customers"
+                data={mockData.customers}
+                onShowLeaderboard={() => showLeaderboard('customers')}
+              />
+            </div>
+          </div>
+
+          {/* Leaderboard Modals */}
+          <LeaderboardModal 
+            type="revenue"
+            isOpen={activeModal === 'revenue'}
+            onClose={closeModal}
+            data={mockData.leaderboards.revenue}
+          />
+          <LeaderboardModal 
+            type="investment"
+            isOpen={activeModal === 'investment'}
+            onClose={closeModal}
+            data={mockData.leaderboards.investment}
+          />
+          <LeaderboardModal 
+            type="customers"
+            isOpen={activeModal === 'customers'}
+            onClose={closeModal}
+            data={mockData.leaderboards.customers}
+          />
+        </div>
+
+        {/* Stagewise Toolbar - Only in development */}
+        <StagewiseToolbar 
+          config={{
+            plugins: [ReactPlugin]
+          }}
+        />
+      </>
+    </ThemeProvider>
+  )
+}
+
+export default App 
