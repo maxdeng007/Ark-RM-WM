@@ -55,7 +55,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="text-2xl font-bold mb-1">{data.title}</h3>
-              <p className="text-white/70 text-sm">本周表现</p>
+              <p className="text-white/70 text-sm">上周表现</p>
             </div>
             <div className="text-right">
               <div className={`text-3xl font-bold mb-1 ${!isDark ? 'text-white' : ''}`}>{data.currentValue}</div>
@@ -64,7 +64,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
                   icon={data.isPositive ? faArrowUp : faArrowDown} 
                   className="mr-1" 
                 />
-                {data.isPositive ? '+' : ''}{data.growthRate}%
+                {data.isPositive ? '+' : ''}{data.growthRate}{data.growthType === 'absolute' ? '' : '%'}
               </div>
             </div>
           </div>

@@ -26,7 +26,20 @@ ChartJS.register(
 
 const Chart = ({ data, type }) => {
   const { isDark } = useTheme()
-  const weeks = ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8']
+  
+  // Define specific dates for each type
+  const getWeekLabels = () => {
+    switch(type) {
+      case 'revenue': 
+        return ['08/21', '08/28', '09/04', '09/11', '09/18', '09/25', '10/02', '10/09']
+      case 'investment': 
+        return ['06/21', '06/28', '07/05', '07/12', '07/19', '07/26', '08/02', '08/09']
+      default: 
+        return ['Week 1', 'Week 2', 'Week 3', 'Week 4', 'Week 5', 'Week 6', 'Week 7', 'Week 8']
+    }
+  }
+  
+  const weeks = getWeekLabels()
   
   const getChartColors = () => {
     if (isDark) {
@@ -53,7 +66,7 @@ const Chart = ({ data, type }) => {
   const chartData = {
     labels: weeks,
     datasets: [{
-      label: type === 'revenue' ? '新增创收 (M)' : '新增海投 (M)',
+      label: type === 'revenue' ? '周增创收(¥元)' : '周增海投($元)',
       data: data,
       borderColor: colors.border,
       backgroundColor: colors.background,
@@ -87,6 +100,15 @@ const Chart = ({ data, type }) => {
     scales: {
       y: {
         beginAtZero: true,
+        title: {
+          display: true,
+          text: type === 'revenue' ? '周增创收(¥元)' : '周增海投($元)',
+          color: isDark ? 'rgba(255, 255, 255, 0.8)' : 'rgba(0, 0, 0, 0.8)',
+          font: {
+            size: 12,
+            weight: 'bold'
+          }
+        },
         grid: {
           color: isDark ? 'rgba(255, 255, 255, 0.1)' : 'rgba(0, 0, 0, 0.1)'
         },
@@ -96,6 +118,9 @@ const Chart = ({ data, type }) => {
         }
       },
       x: {
+        title: {
+          display: false
+        },
         grid: {
           display: false
         },

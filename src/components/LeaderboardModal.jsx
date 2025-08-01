@@ -74,19 +74,19 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
             const progressPercentage = (revenueValue / maxRevenue) * 100;
             
             return (
-              <div key={index} className="flex items-center w-full space-x-4 md:space-x-6">
+              <div key={index} className={`flex items-center w-full space-x-4 md:space-x-6 ${entry.isMe ? (isDark ? 'bg-yellow-500/20 border-l-4 border-yellow-500' : 'bg-yellow-100 border-l-4 border-yellow-500') : ''} p-2 rounded-lg`}>
                 {/* Ranking Number */}
                 <span className={`text-lg font-bold ${index < 3 ? (isDark ? 'text-yellow-400' : 'text-yellow-600') : (isDark ? 'text-white' : 'text-gray-800')} min-w-[30px] md:min-w-[35px]`}>
                   {entry.rank}
                 </span>
                 
                 {/* Profile Picture - Hidden on mobile */}
-                <div className="hidden md:flex w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full items-center justify-center text-white font-bold text-sm">
+                <div className={`hidden md:flex w-10 h-10 rounded-full items-center justify-center text-white font-bold text-sm ${entry.isMe ? 'bg-gradient-to-br from-yellow-400 to-yellow-600' : 'bg-gradient-to-br from-blue-400 to-blue-600'}`}>
                   {entry.avatar}
                 </div>
                 
                 {/* Name */}
-                <span className={`text-sm font-medium flex-1 ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                <span className={`text-sm font-medium flex-1 ${entry.isMe ? (isDark ? 'text-yellow-300' : 'text-yellow-700') : (isDark ? 'text-white' : 'text-gray-800')}`}>
                   {entry.name}
                 </span>
                 
@@ -104,7 +104,7 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
                     {entry.value}
                   </div>
                   <div className={`text-xs font-medium ${entry.isPositive ? (isDark ? 'text-green-400' : 'text-green-600') : (isDark ? 'text-red-400' : 'text-red-600')}`}>
-                    {entry.isPositive ? '+' : ''}{entry.change}%
+                    {entry.isPositive ? '+' : ''}{entry.change}{entry.changeType === 'absolute' ? '' : '%'}
                   </div>
                 </div>
               </div>

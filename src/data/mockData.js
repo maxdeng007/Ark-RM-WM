@@ -33,7 +33,8 @@ export const mockData = {
   customers: {
     title: "新增黄金新客",
     currentValue: "3",
-    growthRate: 50,
+    growthRate: 1,
+    growthType: "absolute",
     isPositive: true,
     targetProgress: 75,
     targetValue: "15位",
@@ -56,13 +57,14 @@ export const mockData = {
       icon: "trophy",
       entries: [
         {
-          name: "张经理",
-          avatar: "张",
+          name: "我",
+          avatar: "我",
           value: "¥28.5M",
           change: 2.1,
           isPositive: true,
           rank: 1,
-          description: "年度冠军"
+          description: "年度冠军",
+          isMe: true
         },
         {
           name: "李经理",
@@ -161,13 +163,14 @@ export const mockData = {
           description: "海投冠军"
         },
         {
-          name: "李经理",
-          avatar: "李",
+          name: "我",
+          avatar: "我",
           value: "$8.5M",
           change: -1.2,
           isPositive: false,
           rank: 2,
-          description: "海投亚军"
+          description: "海投亚军",
+          isMe: true
         },
         {
           name: "赵经理",
@@ -252,6 +255,7 @@ export const mockData = {
           avatar: "刘",
           value: "18位",
           change: 2,
+          changeType: "absolute",
           isPositive: true,
           rank: 1,
           description: "客户冠军"
@@ -261,81 +265,101 @@ export const mockData = {
           avatar: "孙",
           value: "15位",
           change: -1,
+          changeType: "absolute",
           isPositive: false,
           rank: 2,
           description: "客户亚军"
         },
         {
-          name: "王经理",
-          avatar: "王",
+          name: "我",
+          avatar: "我",
           value: "12位",
           change: 1,
+          changeType: "absolute",
           isPositive: true,
           rank: 3,
-          description: "客户季军"
+          description: "客户季军",
+          isMe: true
         },
         {
-          name: "陈经理",
-          avatar: "陈",
+          name: "王经理",
+          avatar: "王",
           value: "11位",
-          change: 0.5,
+          change: 1,
+          changeType: "absolute",
           isPositive: true,
           rank: 4,
           description: "第四名"
         },
         {
+          name: "陈经理",
+          avatar: "陈",
+          value: "11位",
+          change: 1,
+          changeType: "absolute",
+          isPositive: true,
+          rank: 5,
+          description: "第五名"
+        },
+        {
           name: "李经理",
           avatar: "李",
           value: "10位",
-          change: -0.8,
+          change: -1,
+          changeType: "absolute",
           isPositive: false,
-          rank: 5,
-          description: "第五名"
+          rank: 6,
+          description: "第六名"
         },
         {
           name: "赵经理",
           avatar: "赵",
           value: "9位",
-          change: 0.3,
+          change: 1,
+          changeType: "absolute",
           isPositive: true,
-          rank: 6,
-          description: "第六名"
+          rank: 7,
+          description: "第七名"
         },
         {
           name: "周经理",
           avatar: "周",
           value: "8位",
-          change: -0.5,
+          change: -1,
+          changeType: "absolute",
           isPositive: false,
-          rank: 7,
-          description: "第七名"
+          rank: 8,
+          description: "第八名"
         },
         {
           name: "吴经理",
           avatar: "吴",
           value: "7位",
-          change: 0.7,
+          change: 1,
+          changeType: "absolute",
           isPositive: true,
-          rank: 8,
-          description: "第八名"
+          rank: 9,
+          description: "第九名"
         },
         {
           name: "郑经理",
           avatar: "郑",
           value: "6位",
-          change: -0.2,
+          change: -1,
+          changeType: "absolute",
           isPositive: false,
-          rank: 9,
-          description: "第九名"
+          rank: 10,
+          description: "第十名"
         },
         {
           name: "张经理",
           avatar: "张",
           value: "5位",
-          change: 0.4,
+          change: 1,
+          changeType: "absolute",
           isPositive: true,
-          rank: 10,
-          description: "第十名"
+          rank: 11,
+          description: "第十一名"
         }
       ]
     }
