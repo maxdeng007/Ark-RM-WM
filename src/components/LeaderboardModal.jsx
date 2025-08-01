@@ -8,8 +8,10 @@ import {
   faArrowUp,
   faArrowDown
 } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from '../context/ThemeContext'
 
 const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
+  const { isDark } = useTheme()
   if (!isOpen || !data) return null
 
   const getIcon = () => {
@@ -51,46 +53,63 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
   return (
     <div className={`modal ${isOpen ? 'show' : ''}`} onClick={onClose}>
       <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-6">
-          <h3 className={`text-2xl font-bold text-gray-800`}>
-            <FontAwesomeIcon icon={getIcon()} className={`mr-3 ${getIconColor()}`} />
+        <div className="flex justify-between items-center mb-8">
+          <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
+            <FontAwesomeIcon icon={getIcon()} className={`mr-3 ${isDark ? 'text-yellow-400' : 'text-yellow-500'}`} />
             {data.title}
           </h3>
           <button 
             onClick={onClose} 
-            className="text-gray-500 hover:text-gray-700 text-2xl transition-colors"
+            className={`text-2xl transition-colors ${isDark ? 'text-white/70 hover:text-white' : 'text-gray-500 hover:text-gray-700'}`}
           >
             <FontAwesomeIcon icon={faTimes} />
           </button>
         </div>
         
         <div className="space-y-4">
-          {data.entries.map((entry, index) => (
-            <div 
-              key={index}
-              className={`flex items-center justify-between p-4 rounded-2xl border ${getGradientClass(entry.rank)}`}
-            >
-              <div className="flex items-center">
-                <div className={`w-12 h-12 ${getAvatarGradient(entry.rank)} rounded-full flex items-center justify-center text-white font-bold mr-4 text-lg`}>
+          {data.entries.map((entry, index) => {
+            // Calculate progress percentage based on revenue value
+            const revenueValue = parseFloat(entry.value.replace(/[¥,M]/g, ''));
+            const maxRevenue = Math.max(...data.entries.map(e => parseFloat(e.value.replace(/[¥,M]/g, ''))));
+            const progressPercentage = (revenueValue / maxRevenue) * 100;
+            
+            return (
+              <div key={index} className="flex items-center w-full space-x-4 md:space-x-6">
+                {/* Ranking Number */}
+                <span className={`text-lg font-bold ${index < 3 ? (isDark ? 'text-yellow-400' : 'text-yellow-600') : (isDark ? 'text-white' : 'text-gray-800')} min-w-[30px] md:min-w-[35px]`}>
+                  {entry.rank}
+                </span>
+                
+                {/* Profile Picture - Hidden on mobile */}
+                <div className="hidden md:flex w-10 h-10 bg-gradient-to-br from-blue-400 to-blue-600 rounded-full items-center justify-center text-white font-bold text-sm">
                   {entry.avatar}
                 </div>
-                <div>
-                  <div className="font-bold text-lg">{entry.name}</div>
-                  <div className="text-sm text-gray-600">#{entry.rank} {entry.description}</div>
+                
+                {/* Name */}
+                <span className={`text-sm font-medium flex-1 ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                  {entry.name}
+                </span>
+                
+                {/* Progress Bar */}
+                <div className={`flex-1 rounded-full h-3 mx-3 md:mx-6 ${isDark ? 'bg-white/20' : 'bg-gray-200'}`}>
+                  <div 
+                    className={`h-3 rounded-full transition-all duration-300 ${isDark ? 'bg-gradient-to-r from-orange-400 to-orange-600' : 'bg-gradient-to-r from-blue-500 to-purple-600'}`}
+                    style={{ width: `${progressPercentage}%` }}
+                  ></div>
+                </div>
+                
+                {/* Revenue Amount and Change */}
+                <div className="text-right min-w-[80px] md:min-w-[120px]">
+                  <div className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-800'}`}>
+                    {entry.value}
+                  </div>
+                  <div className={`text-xs font-medium ${entry.isPositive ? (isDark ? 'text-green-400' : 'text-green-600') : (isDark ? 'text-red-400' : 'text-red-600')}`}>
+                    {entry.isPositive ? '+' : ''}{entry.change}%
+                  </div>
                 </div>
               </div>
-              <div className="text-right">
-                <div className="font-bold text-2xl text-gray-800">{entry.value}</div>
-                <div className={`text-sm font-semibold ${entry.isPositive ? 'text-green-600' : 'text-red-600'}`}>
-                  <FontAwesomeIcon 
-                    icon={entry.isPositive ? faArrowUp : faArrowDown} 
-                    className="mr-1" 
-                  />
-                  {entry.isPositive ? '+' : ''}{entry.change}%
-                </div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </div>
     </div>

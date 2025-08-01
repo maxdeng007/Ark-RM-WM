@@ -21,12 +21,16 @@ body {
 
 /* Dark theme (default) */
 body.dark {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+  position: relative;
+  overflow-x: hidden;
 }
+
+
 
 /* Light theme */
 body.light {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 /* Glass card styles */
@@ -50,40 +54,162 @@ body.light .glass-card {
   box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
 }
 
-/* Flip card styles */
+/* Realistic flip card styles */
 .flip-card {
-  perspective: 1500px;
+  perspective: 1200px;
   height: 560px;
+  position: relative;
+  width: 100%;
 }
 
 .flip-card-inner {
   position: relative;
   width: 100%;
   height: 100%;
-  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
   transform-style: preserve-3d;
+  transform-origin: center center;
 }
 
 .flip-card.flipped .flip-card-inner {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) scale(1.02);
 }
+
+
 
 .flip-card-front, .flip-card-back {
   position: absolute;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
-  -webkit-backface-visibility: hidden;
-  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -moz-backface-visibility: hidden !important;
   border-radius: 24px;
   padding: 32px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  transition: all 0.3s ease;
+  transition: all 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  transform-style: preserve-3d;
+  will-change: transform;
+  box-sizing: border-box;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
+}
+
+.flip-card-front {
+  transform: translateZ(2px);
 }
 
 .flip-card-back {
-  transform: rotateY(180deg);
+  transform: rotateY(180deg) translateZ(2px);
+}
+
+/* Realistic shadow animation during flip */
+.flip-card-inner::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, transparent 30%, rgba(0,0,0,0.1) 50%, transparent 70%);
+  opacity: 0;
+  transition: opacity 0.8s cubic-bezier(0.4, 0.0, 0.2, 1);
+  pointer-events: none;
+  border-radius: 24px;
+  z-index: 10;
+}
+
+.flip-card:hover .flip-card-inner::before {
+  opacity: 0.3;
+}
+
+.flip-card.flipped .flip-card-inner::before {
+  opacity: 0;
+}
+
+.flip-card-back {
+  transform: rotateY(180deg) translateZ(1px);
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -moz-backface-visibility: hidden !important;
+}
+
+/* Realistic hover effects */
+.flip-card:hover .flip-card-front,
+.flip-card:hover .flip-card-back {
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.2);
+  transition: box-shadow 0.3s ease;
+}
+
+/* Subtle lift effect on hover */
+.flip-card:hover {
+  transform: translateY(-2px);
+  transition: transform 0.3s ease;
+}
+
+.flip-card:hover .flip-card-inner {
+  transform: scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+.flip-card.flipped:hover .flip-card-inner {
+  transform: rotateY(180deg) scale(1.02);
+  transition: transform 0.3s ease;
+}
+
+/* Ensure proper 3D rendering */
+.flip-card * {
+  transform-style: preserve-3d;
+}
+
+/* Force backface visibility for all flip card elements */
+.flip-card .flip-card-front,
+.flip-card .flip-card-back {
+  -webkit-backface-visibility: hidden !important;
+  backface-visibility: hidden !important;
+  -moz-backface-visibility: hidden !important;
+  position: absolute !important;
+  z-index: auto !important;
+}
+
+/* Override theme-specific positioning for flip cards */
+body.dark .flip-card .flip-card-front,
+body.dark .flip-card .flip-card-back,
+body.light .flip-card .flip-card-front,
+body.light .flip-card .flip-card-back {
+  position: absolute !important;
+  z-index: auto !important;
+}
+
+/* Ensure flip card inner elements don't inherit theme positioning */
+body.dark .flip-card *,
+body.light .flip-card * {
+  position: static !important;
+  z-index: auto !important;
+}
+
+/* Ensure proper visibility based on flip state */
+.flip-card:not(.flipped) .flip-card-back {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flip-card.flipped .flip-card-front {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.flip-card:not(.flipped) .flip-card-front {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.flip-card.flipped .flip-card-back {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* Card gradients - Dark theme */
@@ -99,17 +225,30 @@ body.dark .card-gradient-3 {
   background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
 }
 
-/* Card gradients - Light theme */
-body.light .card-gradient-1 {
-  background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+/* Card gradients - Light theme (Front side) */
+body.light .flip-card-front.card-gradient-1 {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 }
 
-body.light .card-gradient-2 {
-  background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+body.light .flip-card-front.card-gradient-2 {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
 }
 
-body.light .card-gradient-3 {
-  background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+body.light .flip-card-front.card-gradient-3 {
+  background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+}
+
+/* Card gradients - Light theme (Back side) */
+body.light .flip-card-back.card-gradient-1 {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+body.light .flip-card-back.card-gradient-2 {
+  background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+body.light .flip-card-back.card-gradient-3 {
+  background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
 }
 
 /* Modal styles */
@@ -151,9 +290,9 @@ body.light .modal {
 }
 
 body.dark .modal-content {
-  background: rgba(255, 255, 255, 0.95);
-  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(40, 40, 40, 0.95);
+  box-shadow: 0 25px 50px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 body.light .modal-content {
@@ -188,8 +327,25 @@ body.dark .progress-bar {
   background: rgba(255, 255, 255, 0.2);
 }
 
-body.light .progress-bar {
-  background: rgba(0, 0, 0, 0.1);
+/* Light theme front side component styles */
+/* Light theme front side component styles - Revenue card */
+body.light .flip-card-front.card-gradient-1 .progress-bar {
+  background: rgba(102, 126, 234, 0.1);
+}
+
+/* Light theme front side component styles - Investment card */
+body.light .flip-card-front.card-gradient-2 .progress-bar {
+  background: rgba(79, 172, 254, 0.1);
+}
+
+/* Light theme front side component styles - Customer card */
+body.light .flip-card-front.card-gradient-3 .progress-bar {
+  background: rgba(250, 112, 154, 0.1);
+}
+
+/* Light theme back side component styles */
+body.light .flip-card-back .progress-bar {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .progress-fill {
@@ -204,8 +360,20 @@ body.dark .progress-fill {
   background: rgba(255, 255, 255, 0.3);
 }
 
-body.light .progress-fill {
-  background: rgba(255, 255, 255, 0.6);
+body.light .flip-card-front.card-gradient-1 .progress-fill {
+  background: linear-gradient(90deg, #667eea, #764ba2);
+}
+
+body.light .flip-card-front.card-gradient-2 .progress-fill {
+  background: linear-gradient(90deg, #4facfe, #00f2fe);
+}
+
+body.light .flip-card-front.card-gradient-3 .progress-fill {
+  background: linear-gradient(90deg, #fa709a, #fee140);
+}
+
+body.light .flip-card-back .progress-fill {
+  background: rgba(255, 255, 255, 0.4);
 }
 
 .progress-fill::after {
@@ -243,8 +411,20 @@ body.dark .chart-container {
   background: rgba(255, 255, 255, 0.1);
 }
 
-body.light .chart-container {
-  background: rgba(255, 255, 255, 0.3);
+body.light .flip-card-front.card-gradient-1 .chart-container {
+  background: rgba(102, 126, 234, 0.05);
+}
+
+body.light .flip-card-front.card-gradient-2 .chart-container {
+  background: rgba(79, 172, 254, 0.05);
+}
+
+body.light .flip-card-front.card-gradient-3 .chart-container {
+  background: rgba(250, 112, 154, 0.05);
+}
+
+body.light .flip-card-back .chart-container {
+  background: rgba(255, 255, 255, 0.15);
 }
 
 /* Stat card styles */
@@ -261,9 +441,24 @@ body.dark .stat-card {
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
 
-body.light .stat-card {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.5);
+body.light .flip-card-front.card-gradient-1 .stat-card {
+  background: rgba(102, 126, 234, 0.05);
+  border: 1px solid rgba(102, 126, 234, 0.1);
+}
+
+body.light .flip-card-front.card-gradient-2 .stat-card {
+  background: rgba(79, 172, 254, 0.05);
+  border: 1px solid rgba(79, 172, 254, 0.1);
+}
+
+body.light .flip-card-front.card-gradient-3 .stat-card {
+  background: rgba(250, 112, 154, 0.05);
+  border: 1px solid rgba(250, 112, 154, 0.1);
+}
+
+body.light .flip-card-back .stat-card {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.3);
 }
 
 .stat-card:hover {
@@ -310,10 +505,28 @@ body.dark .customer-tag {
   color: rgba(255, 255, 255, 0.8);
 }
 
-body.light .customer-tag {
-  background: rgba(255, 255, 255, 0.5);
-  border: 1px solid rgba(255, 255, 255, 0.6);
-  color: rgba(0, 0, 0, 0.7);
+body.light .flip-card-front.card-gradient-1 .customer-tag {
+  background: rgba(102, 126, 234, 0.15);
+  border: 1px solid rgba(102, 126, 234, 0.3);
+  color: #667eea;
+}
+
+body.light .flip-card-front.card-gradient-2 .customer-tag {
+  background: rgba(79, 172, 254, 0.15);
+  border: 1px solid rgba(79, 172, 254, 0.3);
+  color: #4facfe;
+}
+
+body.light .flip-card-front.card-gradient-3 .customer-tag {
+  background: rgba(250, 112, 154, 0.15);
+  border: 1px solid rgba(250, 112, 154, 0.3);
+  color: #fa709a;
+}
+
+body.light .flip-card-back .customer-tag {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 /* Button styles */
@@ -332,10 +545,16 @@ body.dark .btn-modern {
   color: white;
 }
 
-body.light .btn-modern {
-  background: rgba(255, 255, 255, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.5);
-  color: #333;
+body.light .flip-card-front .btn-modern {
+  background: rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  color: rgba(0, 0, 0, 0.8);
+}
+
+body.light .flip-card-back .btn-modern {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: rgba(255, 255, 255, 0.95);
 }
 
 .btn-modern:hover {
@@ -347,8 +566,12 @@ body.dark .btn-modern:hover {
   background: rgba(255, 255, 255, 0.3);
 }
 
-body.light .btn-modern:hover {
-  background: rgba(255, 255, 255, 0.5);
+body.light .flip-card-front .btn-modern:hover {
+  background: rgba(0, 0, 0, 0.15);
+}
+
+body.light .flip-card-back .btn-modern:hover {
+  background: rgba(255, 255, 255, 0.35);
 }
 
 /* Text styles */
@@ -360,30 +583,79 @@ body.light .btn-modern:hover {
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.3);
 }
 
-/* Text color adjustments for light theme */
-body.light h1,
-body.light h2,
-body.light h3,
-body.light p,
-body.light span {
+/* Text color adjustments for light theme - Front side */
+body.light .flip-card-front h1,
+body.light .flip-card-front h2,
+body.light .flip-card-front h3,
+body.light .flip-card-front p,
+body.light .flip-card-front span {
   color: #333 !important;
 }
 
-body.light .text-white {
+body.light .flip-card-front .text-white {
   color: #333 !important;
 }
 
-body.light .text-white\/80 {
+body.light .flip-card-front .text-white\/80 {
+  color: rgba(0, 0, 0, 0.8) !important;
+}
+
+body.light .flip-card-front .text-white\/70 {
   color: rgba(0, 0, 0, 0.7) !important;
 }
 
-body.light .text-white\/70 {
+body.light .flip-card-front .text-white\/60 {
   color: rgba(0, 0, 0, 0.6) !important;
 }
 
-body.light .text-white\/60 {
-  color: rgba(0, 0, 0, 0.5) !important;
+/* Text color adjustments for light theme - Back side */
+body.light .flip-card-back h1,
+body.light .flip-card-back h2,
+body.light .flip-card-back h3,
+body.light .flip-card-back p,
+body.light .flip-card-back span {
+  color: white !important;
+}
+
+body.light .flip-card-back .text-white {
+  color: white !important;
+}
+
+body.light .flip-card-back .text-white\/80 {
+  color: rgba(255, 255, 255, 0.8) !important;
+}
+
+body.light .flip-card-back .text-white\/70 {
+  color: rgba(255, 255, 255, 0.7) !important;
+}
+
+body.light .flip-card-back .text-white\/60 {
+  color: rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Light theme vital data colors */
+body.light .flip-card-front.card-gradient-1 .text-3xl {
+  color: #667eea !important;
+}
+
+body.light .flip-card-front.card-gradient-2 .text-3xl {
+  color: #4facfe !important;
+}
+
+body.light .flip-card-front.card-gradient-3 .text-3xl {
+  color: #fa709a !important;
 } 
+
+/* Dot grid background styles */
+.dot-grid-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  pointer-events: none;
+}
 
 /* Dark theme specific styles */
 body.dark .glass-card {
@@ -407,10 +679,6 @@ body.dark .modal {
   background: rgba(0, 0, 0, 0.7);
 }
 
-body.dark .modal-content {
-  background: rgba(255, 255, 255, 0.98);
-  border: 1px solid rgba(255, 255, 255, 0.3);
-}
 
 body.dark .progress-bar {
   background: rgba(255, 255, 255, 0.25);
@@ -462,3 +730,84 @@ body.dark .text-white\/90 {
 body.dark .text-white\/60 {
   color: rgba(255, 255, 255, 0.8);
 } 
+/* Enhanced contrast for investment and customer cards */
+body.dark .card-gradient-2,
+body.dark .card-gradient-3 {
+  position: relative;
+}
+
+body.dark .card-gradient-2::before,
+body.dark .card-gradient-3::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.3);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+body.dark .card-gradient-2 *,
+body.dark .card-gradient-3 * {
+  position: relative;
+  z-index: 1;
+}
+
+/* Specific improvements for investment and customer cards */
+body.dark .card-gradient-2 .text-white\/70,
+body.dark .card-gradient-3 .text-white\/70 {
+  color: rgba(255, 255, 255, 0.95);
+}
+
+body.dark .card-gradient-2 .text-white\/80,
+body.dark .card-gradient-3 .text-white\/80 {
+  color: rgba(255, 255, 255, 1);
+}
+
+body.dark .card-gradient-2 .text-white\/90,
+body.dark .card-gradient-3 .text-white\/90 {
+  color: rgba(255, 255, 255, 1);
+}
+
+body.dark .card-gradient-2 .text-white\/60,
+body.dark .card-gradient-3 .text-white\/60 {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+/* Enhanced stat cards for investment and customer */
+body.dark .card-gradient-2 .stat-card,
+body.dark .card-gradient-3 .stat-card {
+  background: rgba(255, 255, 255, 0.25);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+body.dark .card-gradient-2 .stat-card p,
+body.dark .card-gradient-3 .stat-card p {
+  color: rgba(255, 255, 255, 1);
+}
+
+/* Apply same gradient principle to revenue card */
+body.dark .card-gradient-1 {
+  position: relative;
+}
+
+body.dark .card-gradient-1::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.2);
+  border-radius: 24px;
+  pointer-events: none;
+}
+
+body.dark .card-gradient-1 * {
+  position: relative;
+  z-index: 1;
+}
+
+

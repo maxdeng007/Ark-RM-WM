@@ -81,6 +81,69 @@ export const mockData = {
           isPositive: true,
           rank: 3,
           description: "季军"
+        },
+        {
+          name: "陈经理",
+          avatar: "陈",
+          value: "¥20.1M",
+          change: 1.2,
+          isPositive: true,
+          rank: 4,
+          description: "第四名"
+        },
+        {
+          name: "刘经理",
+          avatar: "刘",
+          value: "¥18.9M",
+          change: -0.5,
+          isPositive: false,
+          rank: 5,
+          description: "第五名"
+        },
+        {
+          name: "赵经理",
+          avatar: "赵",
+          value: "¥17.3M",
+          change: 0.9,
+          isPositive: true,
+          rank: 6,
+          description: "第六名"
+        },
+        {
+          name: "孙经理",
+          avatar: "孙",
+          value: "¥16.7M",
+          change: -1.1,
+          isPositive: false,
+          rank: 7,
+          description: "第七名"
+        },
+        {
+          name: "周经理",
+          avatar: "周",
+          value: "¥15.4M",
+          change: 0.3,
+          isPositive: true,
+          rank: 8,
+          description: "第八名"
+        },
+        {
+          name: "吴经理",
+          avatar: "吴",
+          value: "¥14.2M",
+          change: -0.8,
+          isPositive: false,
+          rank: 9,
+          description: "第九名"
+        },
+        {
+          name: "郑经理",
+          avatar: "郑",
+          value: "¥13.8M",
+          change: 0.6,
+          isPositive: true,
+          rank: 10,
+          description: "第十名"
         }
       ]
     },
@@ -114,6 +177,69 @@ export const mockData = {
           isPositive: true,
           rank: 3,
           description: "海投季军"
+        },
+        {
+          name: "刘经理",
+          avatar: "刘",
+          value: "$6.9M",
+          change: 1.8,
+          isPositive: true,
+          rank: 4,
+          description: "第四名"
+        },
+        {
+          name: "孙经理",
+          avatar: "孙",
+          value: "$6.2M",
+          change: -0.7,
+          isPositive: false,
+          rank: 5,
+          description: "第五名"
+        },
+        {
+          name: "周经理",
+          avatar: "周",
+          value: "$5.8M",
+          change: 0.9,
+          isPositive: true,
+          rank: 6,
+          description: "第六名"
+        },
+        {
+          name: "吴经理",
+          avatar: "吴",
+          value: "$5.3M",
+          change: -1.4,
+          isPositive: false,
+          rank: 7,
+          description: "第七名"
+        },
+        {
+          name: "郑经理",
+          avatar: "郑",
+          value: "$4.9M",
+          change: 0.6,
+          isPositive: true,
+          rank: 8,
+          description: "第八名"
+        },
+        {
+          name: "王经理",
+          avatar: "王",
+          value: "$4.5M",
+          change: -0.3,
+          isPositive: false,
+          rank: 9,
+          description: "第九名"
+        },
+        {
+          name: "张经理",
+          avatar: "张",
+          value: "$4.1M",
+          change: 0.8,
+          isPositive: true,
+          rank: 10,
+          description: "第十名"
         }
       ]
     },
@@ -147,6 +273,69 @@ export const mockData = {
           isPositive: true,
           rank: 3,
           description: "客户季军"
+        },
+        {
+          name: "陈经理",
+          avatar: "陈",
+          value: "11位",
+          change: 0.5,
+          isPositive: true,
+          rank: 4,
+          description: "第四名"
+        },
+        {
+          name: "李经理",
+          avatar: "李",
+          value: "10位",
+          change: -0.8,
+          isPositive: false,
+          rank: 5,
+          description: "第五名"
+        },
+        {
+          name: "赵经理",
+          avatar: "赵",
+          value: "9位",
+          change: 0.3,
+          isPositive: true,
+          rank: 6,
+          description: "第六名"
+        },
+        {
+          name: "周经理",
+          avatar: "周",
+          value: "8位",
+          change: -0.5,
+          isPositive: false,
+          rank: 7,
+          description: "第七名"
+        },
+        {
+          name: "吴经理",
+          avatar: "吴",
+          value: "7位",
+          change: 0.7,
+          isPositive: true,
+          rank: 8,
+          description: "第八名"
+        },
+        {
+          name: "郑经理",
+          avatar: "郑",
+          value: "6位",
+          change: -0.2,
+          isPositive: false,
+          rank: 9,
+          description: "第九名"
+        },
+        {
+          name: "张经理",
+          avatar: "张",
+          value: "5位",
+          change: 0.4,
+          isPositive: true,
+          rank: 10,
+          description: "第十名"
         }
       ]
     }

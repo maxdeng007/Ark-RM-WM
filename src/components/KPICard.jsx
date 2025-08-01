@@ -9,10 +9,12 @@ import {
   faUsers,
   faChartBar
 } from '@fortawesome/free-solid-svg-icons'
+import { useTheme } from '../context/ThemeContext'
 import Chart from './Chart'
 
 const KPICard = ({ type, data, onShowLeaderboard }) => {
   const [isFlipped, setIsFlipped] = useState(false)
+  const { isDark } = useTheme()
 
   const getGradientClass = () => {
     switch(type) {
@@ -56,8 +58,8 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
               <p className="text-white/70 text-sm">本周表现</p>
             </div>
             <div className="text-right">
-              <div className="text-3xl font-bold mb-1">{data.currentValue}</div>
-              <div className={`flex items-center text-sm ${data.isPositive ? 'text-green-300' : 'text-red-300'}`}>
+              <div className={`text-3xl font-bold mb-1 ${!isDark ? 'text-white' : ''}`}>{data.currentValue}</div>
+              <div className={`flex items-center justify-end text-sm ${data.isPositive ? 'text-green-300' : 'text-red-300'}`}>
                 <FontAwesomeIcon 
                   icon={data.isPositive ? faArrowUp : faArrowDown} 
                   className="mr-1" 
@@ -96,18 +98,44 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           )}
           
           {type === 'customers' && (
-            <div className="mb-3">
-              <h4 className="font-semibold text-white mb-2">
+            <div className="chart-container flex-1 flex flex-col justify-center p-4">
+              <h4 className="font-semibold text-white mb-4">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 即将达成客户
               </h4>
-              <div className="space-y-2">
-                {data.upcomingCustomers.map((customer, index) => (
-                  <div key={index} className="flex justify-between items-center">
-                    <span className="text-white/90 text-sm">{customer.name}</span>
-                    <span className="customer-tag text-white/80">差距{customer.gap}</span>
-                  </div>
-                ))}
+              <div className="space-y-2 flex-1 flex flex-col justify-center w-full">
+                {data.upcomingCustomers.map((customer, index) => {
+                  const gapValue = parseInt(customer.gap.replace(/[$,]/g, ''));
+                  const maxGap = 50000; // Based on the largest gap in data
+                  const progressPercentage = Math.max(0, 100 - (gapValue / maxGap) * 100);
+                  
+                  return (
+                    <div key={index} className="flex items-center w-full space-x-3">
+                      {/* Ranking Number */}
+                      <span className={`text-lg font-bold ${index < 3 ? 'text-yellow-400' : 'text-white'} min-w-[20px]`}>
+                        {index + 1}
+                      </span>
+                      
+                      {/* Customer Name */}
+                      <span className="text-white text-sm font-medium flex-1">
+                        {customer.name}
+                      </span>
+                      
+                      {/* Progress Bar */}
+                      <div className="flex-1 bg-white/20 rounded-full h-2 mx-2">
+                        <div 
+                          className={`h-2 rounded-full transition-all duration-300 ${isDark ? 'bg-gradient-to-r from-orange-400 to-orange-600' : 'bg-pink-300'}`}
+                          style={{ width: `${progressPercentage}%` }}
+                        ></div>
+                      </div>
+                      
+                      {/* Gap Value */}
+                      <span className="text-white text-sm font-medium min-w-[60px] text-right">
+                        差距{customer.gap}
+                      </span>
+                    </div>
+                  );
+                })}
               </div>
             </div>
           )}
@@ -119,39 +147,42 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
         
         {/* Back Side */}
         <div className={`flip-card-back ${getGradientClass()} text-white`}>
-          <div className="flex items-center justify-between mb-3">
+          {/* Header with title and medal */}
+          <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">
               {type === 'revenue' ? '年度排名' : '下半年排名'}
             </h3>
-            <div className="text-right">
-              <div className="flex items-center mb-2">
-                <span className="trophy text-3xl">{getTrophyIcon(data.ranking.trophy)}</span>
-                <span className="text-4xl font-bold ml-2">#{data.ranking.position}</span>
-              </div>
-              <div className={`text-sm ${data.ranking.change >= 0 ? 'text-green-300' : 'text-red-300'}`}>
-                <FontAwesomeIcon 
-                  icon={data.ranking.change >= 0 ? faArrowUp : faArrowDown} 
-                  className="mr-1" 
-                />
-                {data.ranking.change >= 0 ? '+' : ''}{data.ranking.change}
-              </div>
+            <span className="trophy text-3xl">{getTrophyIcon(data.ranking.trophy)}</span>
+          </div>
+          
+          {/* Centered ranking number */}
+          <div className="text-center mb-4">
+            <div className="text-6xl font-bold mb-2">#{data.ranking.position}</div>
+            <div className={`text-lg ${data.ranking.change >= 0 ? 'text-green-300' : 'text-red-300'}`}>
+              <FontAwesomeIcon 
+                icon={data.ranking.change >= 0 ? faArrowUp : faArrowDown} 
+                className="mr-1" 
+              />
+              {data.ranking.change >= 0 ? '+' : ''}{data.ranking.change}
             </div>
           </div>
           
-          <div className="stat-card mb-3">
-            <p className="text-white/90 text-sm">
+          {/* Status description */}
+          <div className="mb-6">
+            <p className="text-white/90 text-sm text-center leading-relaxed">
               {type === 'revenue' && '当前排名第一，较上周无变化，表现稳定优秀！'}
               {type === 'investment' && `下半年累计海投: ${data.ranking.totalValue}，排名略有下降，需要加强！`}
               {type === 'customers' && `下半年累计黄金新客: ${data.ranking.totalValue}，排名上升，继续保持！`}
             </p>
           </div>
           
+          {/* Leaderboard button */}
           <button 
             onClick={(e) => {
               e.stopPropagation()
               onShowLeaderboard()
             }} 
-            className="btn-modern w-full mb-3"
+            className="btn-modern w-full mb-4"
           >
             <FontAwesomeIcon icon={faChartBar} className="mr-2" />
             {type === 'revenue' && '年度创收榜'}
@@ -159,7 +190,8 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
             {type === 'customers' && '下半年黄金新客榜'}
           </button>
           
-          <div className="text-center">
+          {/* Instruction text */}
+          <div className="text-center mt-auto">
             <p className="text-white/60 text-xs">点击卡片返回正面</p>
           </div>
         </div>

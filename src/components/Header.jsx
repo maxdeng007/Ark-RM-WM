@@ -7,7 +7,7 @@ const Header = () => {
   const { isDark, toggleTheme } = useTheme()
 
   return (
-    <div className="glass-card rounded-3xl p-8 mb-8 text-center animate-float">
+    <div className="p-8 mb-8 text-center animate-float">
       <div className="relative">
         <button
           onClick={toggleTheme}
@@ -19,18 +19,8 @@ const Header = () => {
             className="text-white text-xl"
           />
         </button>
-        <h1 className="text-4xl font-bold text-white mb-3 text-shadow">RM一周简报</h1>
-        <p className="text-xl text-white/80 font-medium">6/12/2025 - 6/18/2025</p>
-        <div className="mt-4 flex justify-center items-center space-x-4">
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-green-400 rounded-full animate-pulse-slow"></div>
-            <span className="text-white/70 text-sm">实时数据</span>
-          </div>
-          <div className="flex items-center space-x-2">
-            <div className="w-3 h-3 bg-blue-400 rounded-full animate-pulse-slow"></div>
-            <span className="text-white/70 text-sm">自动更新</span>
-          </div>
-        </div>
+        <h1 className={`text-4xl font-bold mb-3 text-shadow ${isDark ? 'text-white' : 'text-gray-800'}`}>RM一周简报</h1>
+        <p className={`text-xl font-medium ${isDark ? 'text-white/80' : 'text-gray-600'}`}>6/12/2025 - 6/18/2025</p>
       </div>
     </div>
   )
