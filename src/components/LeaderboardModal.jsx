@@ -52,8 +52,9 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
 
   return (
     <div className={`modal ${isOpen ? 'show' : ''}`} onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-        <div className="flex justify-between items-center mb-8">
+      <div className="modal-content flex flex-col h-full" onClick={(e) => e.stopPropagation()}>
+        {/* Sticky Header */}
+        <div className="flex justify-between items-center mb-8 sticky top-0 bg-inherit z-10 pb-4 border-b border-gray-200 dark:border-gray-700">
           <h3 className={`text-2xl font-bold ${isDark ? 'text-white' : 'text-gray-800'}`}>
             <FontAwesomeIcon icon={getIcon()} className={`mr-3 ${isDark ? 'text-yellow-400' : 'text-yellow-500'}`} />
             {data.title}
@@ -66,7 +67,8 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
           </button>
         </div>
         
-        <div className="space-y-4">
+        {/* Scrollable Content */}
+        <div className="flex-1 overflow-y-auto space-y-4">
           {data.entries.map((entry, index) => {
             // Calculate progress percentage based on revenue value
             const revenueValue = parseFloat(entry.value.replace(/[¥,M]/g, ''));

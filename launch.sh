@@ -21,5 +21,5 @@ echo "🌐 Opening browser..."
 open http://localhost:3000
 
 echo "✅ React app is now running at http://localhost:3000"
-echo "🔧 Browser extensions (like stagewise) should now work!"
+echo "🔧 Browser extensions (like React Developer Tools) should now work!"
 echo "📝 Press Ctrl+C to stop the server" 

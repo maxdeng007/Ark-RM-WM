@@ -285,7 +285,6 @@ body.light .modal {
   width: 90%;
   max-width: 700px;
   max-height: 80vh;
-  overflow-y: auto;
   transition: all 0.3s ease;
 }
 
