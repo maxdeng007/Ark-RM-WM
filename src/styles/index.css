@@ -395,10 +395,10 @@ body.light .flip-card-back .progress-fill {
 .chart-container {
   position: relative;
   border-radius: 16px;
-  padding: 12px;
+  padding: 8px;
   transition: all 0.3s ease;
   flex-grow: 1;
-  min-height: 200px;
+  min-height: 180px;
   height: 100%;
   overflow: hidden;
   display: flex;
@@ -407,23 +407,23 @@ body.light .flip-card-back .progress-fill {
 }
 
 body.dark .chart-container {
-  background: rgba(255, 255, 255, 0.1);
+  background: transparent;
 }
 
 body.light .flip-card-front.card-gradient-1 .chart-container {
-  background: rgba(102, 126, 234, 0.05);
+  background: transparent;
 }
 
 body.light .flip-card-front.card-gradient-2 .chart-container {
-  background: rgba(79, 172, 254, 0.05);
+  background: transparent;
 }
 
 body.light .flip-card-front.card-gradient-3 .chart-container {
-  background: rgba(250, 112, 154, 0.05);
+  background: transparent;
 }
 
 body.light .flip-card-back .chart-container {
-  background: rgba(255, 255, 255, 0.15);
+  background: transparent;
 }
 
 /* Stat card styles */
