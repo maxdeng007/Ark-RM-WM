@@ -7,7 +7,9 @@ import {
   faExclamationTriangle, 
   faStar, 
   faUsers,
-  faChartBar
+  faChartBar,
+  faCheck,
+  faTimes
 } from '@fortawesome/free-solid-svg-icons'
 import { useTheme } from '../context/ThemeContext'
 import Chart from './Chart'
@@ -43,6 +45,24 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
     }
   }
 
+  const getStatusIcon = (status) => {
+    switch(status) {
+      case 'healthy': return faCheck
+      case 'warning': return faExclamationTriangle
+      case 'critical': return faTimes
+      default: return faCheck
+    }
+  }
+
+  const getStatusColor = (status) => {
+    switch(status) {
+      case 'healthy': return 'text-green-400'
+      case 'warning': return 'text-yellow-400'
+      case 'critical': return 'text-red-400'
+      default: return 'text-green-400'
+    }
+  }
+
   const handleCardClick = () => {
     setIsFlipped(!isFlipped)
   }
@@ -55,26 +75,20 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="text-2xl font-bold mb-1">{data.title}</h3>
-              <p className="text-white/70 text-sm">上周表现</p>
             </div>
             <div className="text-right">
               <div className={`text-3xl font-bold mb-1 ${!isDark ? 'text-white' : ''}`}>{data.currentValue}</div>
-              <div className={`flex items-center justify-end text-sm ${data.isPositive ? 'text-green-300' : 'text-red-300'}`}>
-                <FontAwesomeIcon 
-                  icon={data.isPositive ? faArrowUp : faArrowDown} 
-                  className="mr-1" 
-                />
-                {data.isPositive ? '+' : ''}{data.growthRate}{data.growthType === 'absolute' ? '' : '%'}
+              {/* Status Icon */}
+              <div className={`text-xl ${getStatusColor(data.progressStatus)}`}>
+                <FontAwesomeIcon icon={getStatusIcon(data.progressStatus)} />
               </div>
             </div>
           </div>
           
           <div className="mb-3">
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-white/80">
-                {type === 'revenue' ? '年度目标进度' : '下半年目标进度'}
-              </span>
-              <span className="font-semibold">{data.targetProgress}%</span>
+              <span className="text-white/80">年度创收进度条</span>
+              <span className="font-semibold">{data.achievementRatio}</span>
             </div>
             <div className="progress-bar">
               <div 
@@ -82,18 +96,20 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
                 style={{ width: `${data.targetProgress}%` }}
               ></div>
             </div>
+            <div className="flex justify-between text-xs mt-1">
+              <span className="text-white/70">目标: {data.targetValue}</span>
+              <span className="text-white/70">已达成: {data.currentAchieved}</span>
+            </div>
           </div>
           
-          <div className="stat-card mb-3">
-            <p className="text-white/90 text-sm leading-relaxed">
-              <FontAwesomeIcon icon={getIcon()} className="mr-2 text-yellow-300" />
-              {data.evaluation}
-            </p>
-          </div>
+
           
           {type !== 'customers' && (
             <div className="chart-container flex-1 flex items-center justify-center">
-              <Chart data={data.chartData} type={type} />
+              <div className="text-center">
+                <h4 className="text-white/80 text-sm mb-2">该RM近8周的新增创收趋势图</h4>
+                <Chart data={data.chartData} type={type} />
+              </div>
             </div>
           )}
           
@@ -141,7 +157,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           )}
           
           <div className="text-center mt-2">
-            <p className="text-white/60 text-xs">点击卡片查看排名详情</p>
+            <p className="text-white/60 text-xs">你上周超越了80%RM，翻一查看更多</p>
           </div>
         </div>
         
@@ -150,7 +166,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           {/* Header with title and medal */}
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">
-              {type === 'revenue' ? '年度排名' : '下半年排名'}
+              {type === 'revenue' ? '上周排名' : '下半年排名'}
             </h3>
             <span className="trophy text-3xl">{getTrophyIcon(data.ranking.trophy)}</span>
           </div>
@@ -158,13 +174,6 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           {/* Centered ranking number */}
           <div className="text-center mb-4">
             <div className="text-6xl font-bold mb-2">#{data.ranking.position}</div>
-            <div className={`text-lg ${data.ranking.change >= 0 ? 'text-green-300' : 'text-red-300'}`}>
-              <FontAwesomeIcon 
-                icon={data.ranking.change >= 0 ? faArrowUp : faArrowDown} 
-                className="mr-1" 
-              />
-              {data.ranking.change >= 0 ? '+' : ''}{data.ranking.change}
-            </div>
           </div>
           
           {/* Status description */}
@@ -185,7 +194,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
             className="btn-modern w-full mb-4"
           >
             <FontAwesomeIcon icon={faChartBar} className="mr-2" />
-            {type === 'revenue' && '年度创收榜'}
+            {type === 'revenue' && data.leaderboardTitle}
             {type === 'investment' && '下半年海投榜'}
             {type === 'customers' && '下半年黄金新客榜'}
           </button>

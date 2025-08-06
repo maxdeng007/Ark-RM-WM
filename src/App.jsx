@@ -1,6 +1,4 @@
 import React, { useState } from 'react'
-import { StagewiseToolbar } from '@stagewise/toolbar-react'
-import ReactPlugin from '@stagewise-plugins/react'
 import { ThemeProvider, useTheme } from './context/ThemeContext'
 import Header from './components/Header'
 import KPICard from './components/KPICard'
@@ -81,12 +79,7 @@ function AppContent() {
         />
       </div>
 
-      {/* Stagewise Toolbar - Only in development */}
-      <StagewiseToolbar 
-        config={{
-          plugins: [ReactPlugin]
-        }}
-      />
+
     </>
   )
 }

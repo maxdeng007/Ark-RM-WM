@@ -100,13 +100,10 @@ const LeaderboardModal = ({ type, isOpen, onClose, data }) => {
                   ></div>
                 </div>
                 
-                {/* Revenue Amount and Change */}
+                {/* Revenue Amount */}
                 <div className="text-right min-w-[80px] md:min-w-[120px]">
                   <div className={`text-sm font-medium ${isDark ? 'text-white' : 'text-gray-800'}`}>
                     {entry.value}
-                  </div>
-                  <div className={`text-xs font-medium ${entry.isPositive ? (isDark ? 'text-green-400' : 'text-green-600') : (isDark ? 'text-red-400' : 'text-red-600')}`}>
-                    {entry.isPositive ? '+' : ''}{entry.change}{entry.changeType === 'absolute' ? '' : '%'}
                   </div>
                 </div>
               </div>
