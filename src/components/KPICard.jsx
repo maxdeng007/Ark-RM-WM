@@ -47,10 +47,10 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
 
   const getStatusLabel = (status) => {
     switch(status) {
-      case 'healthy': return '进度领先'
-      case 'warning': return '进度正常'
-      case 'critical': return '进度落后'
-      default: return '进度领先'
+      case 'healthy': return '🟢 进度领先'
+      case 'warning': return '🔵 进度正常'
+      case 'critical': return '🔴 进度落后'
+      default: return '🟢 进度领先'
     }
   }
 
@@ -71,17 +71,18 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
     <div className={`flip-card ${isFlipped ? 'flipped' : ''}`} onClick={handleCardClick}>
       <div className="flip-card-inner">
         {/* Front Side */}
-        <div className={`flip-card-front ${getGradientClass()} text-white`}>
+        <div className={`flip-card-front ${getGradientClass()} text-white relative`}>
+          {/* Status Label - Sticky Top Right */}
+          <div className={`absolute top-4 right-4 text-sm font-medium ${getStatusColor(data.progressStatus)}`}>
+            {getStatusLabel(data.progressStatus)}
+          </div>
+          
           <div className="flex items-center justify-between mb-3">
             <div>
               <h3 className="text-2xl font-bold mb-1">{data.title}</h3>
             </div>
             <div className="text-right">
               <div className={`text-3xl font-bold mb-1 ${!isDark ? 'text-white' : ''}`}>{data.currentValue}</div>
-              {/* Status Label */}
-              <div className={`text-sm font-medium ${getStatusColor(data.progressStatus)}`}>
-                {getStatusLabel(data.progressStatus)}
-              </div>
             </div>
           </div>
           
