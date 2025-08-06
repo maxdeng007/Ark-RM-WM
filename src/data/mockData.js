@@ -31,14 +31,13 @@ export const mockData = {
     leaderboardTitle: "上周海投榜"
   },
   customers: {
-    title: "新增黄金新客",
+    title: "上周新增黄金新客",
     currentValue: "3",
-    growthRate: 1,
-    growthType: "absolute",
-    isPositive: true,
     targetProgress: 75,
     targetValue: "15位",
-    evaluation: "下半年目标已达成75% (15位), 进度超越70%RM，表现优秀！",
+    currentAchieved: "11.25位",
+    achievementRatio: "75%",
+    progressStatus: "healthy", // "healthy", "warning", "critical"
     upcomingCustomers: [
       { name: "张先生", gap: "$20,000" },
       { name: "李女士", gap: "$35,000" },
@@ -46,10 +45,10 @@ export const mockData = {
     ],
     ranking: {
       position: 3,
-      change: 1,
       trophy: "bronze",
       totalValue: "12位"
-    }
+    },
+    leaderboardTitle: "上周黄金新客榜"
   },
   leaderboards: {
     revenue: {
@@ -207,16 +206,13 @@ export const mockData = {
       ]
     },
     customers: {
-      title: "下半年黄金新客榜",
+      title: "上周黄金新客榜",
       icon: "crown",
       entries: [
         {
           name: "刘经理",
           avatar: "刘",
           value: "18位",
-          change: 2,
-          changeType: "absolute",
-          isPositive: true,
           rank: 1,
           description: "客户冠军"
         },
@@ -224,9 +220,6 @@ export const mockData = {
           name: "孙经理",
           avatar: "孙",
           value: "15位",
-          change: -1,
-          changeType: "absolute",
-          isPositive: false,
           rank: 2,
           description: "客户亚军"
         },
@@ -234,9 +227,6 @@ export const mockData = {
           name: "我",
           avatar: "我",
           value: "12位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 3,
           description: "客户季军",
           isMe: true
@@ -245,9 +235,6 @@ export const mockData = {
           name: "王经理",
           avatar: "王",
           value: "11位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 4,
           description: "第四名"
         },
@@ -255,9 +242,6 @@ export const mockData = {
           name: "陈经理",
           avatar: "陈",
           value: "11位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 5,
           description: "第五名"
         },
@@ -265,9 +249,6 @@ export const mockData = {
           name: "李经理",
           avatar: "李",
           value: "10位",
-          change: -1,
-          changeType: "absolute",
-          isPositive: false,
           rank: 6,
           description: "第六名"
         },
@@ -275,9 +256,6 @@ export const mockData = {
           name: "赵经理",
           avatar: "赵",
           value: "9位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 7,
           description: "第七名"
         },
@@ -285,9 +263,6 @@ export const mockData = {
           name: "周经理",
           avatar: "周",
           value: "8位",
-          change: -1,
-          changeType: "absolute",
-          isPositive: false,
           rank: 8,
           description: "第八名"
         },
@@ -295,9 +270,6 @@ export const mockData = {
           name: "吴经理",
           avatar: "吴",
           value: "7位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 9,
           description: "第九名"
         },
@@ -305,9 +277,6 @@ export const mockData = {
           name: "郑经理",
           avatar: "郑",
           value: "6位",
-          change: -1,
-          changeType: "absolute",
-          isPositive: false,
           rank: 10,
           description: "第十名"
         },
@@ -315,9 +284,6 @@ export const mockData = {
           name: "张经理",
           avatar: "张",
           value: "5位",
-          change: 1,
-          changeType: "absolute",
-          isPositive: true,
           rank: 11,
           description: "第十一名"
         }

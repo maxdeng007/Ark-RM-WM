@@ -88,7 +88,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           <div className="mb-3">
             <div className="flex justify-between text-sm mb-2">
               <span className="text-white/80">
-                {type === 'revenue' ? '年度创收进度条' : '下半年海投目标达成进度条'}
+                {type === 'revenue' ? '年度创收进度条' : type === 'investment' ? '下半年海投目标达成进度条' : '下半年黄金新客目标达成进度条'}
               </span>
               <span className="font-semibold">{data.achievementRatio}</span>
             </div>
@@ -162,7 +162,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           
           <div className="text-center mt-2">
             <p className="text-white/60 text-xs">
-              {type === 'revenue' ? '你上周超越了80%RM，翻一查看更多' : '你上周超越了70%RM，翻一翻查看更多'}
+              {type === 'revenue' ? '你上周超越了80%RM，翻一查看更多' : 
+               type === 'investment' ? '你上周超越了70%RM，翻一翻查看更多' : 
+               '你上周超越了75%RM，翻一查看更多'}
             </p>
           </div>
         </div>
@@ -172,7 +174,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           {/* Header with title and medal */}
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">
-              {type === 'revenue' ? '上周排名' : type === 'investment' ? '上周排名' : '下半年排名'}
+              {type === 'revenue' ? '上周排名' : type === 'investment' ? '上周排名' : type === 'customers' ? '上周排名' : '下半年排名'}
             </h3>
             <span className="trophy text-3xl">{getTrophyIcon(data.ranking.trophy)}</span>
           </div>
@@ -202,7 +204,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
             <FontAwesomeIcon icon={faChartBar} className="mr-2" />
             {type === 'revenue' && data.leaderboardTitle}
             {type === 'investment' && data.leaderboardTitle}
-            {type === 'customers' && '下半年黄金新客榜'}
+            {type === 'customers' && data.leaderboardTitle}
           </button>
           
           {/* Instruction text */}
