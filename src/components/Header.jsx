@@ -20,7 +20,7 @@ const Header = () => {
           />
         </button>
         <h1 className={`text-4xl font-bold mb-3 text-shadow ${isDark ? 'text-white' : 'text-gray-800'}`}>RM一周简报</h1>
-        <p className={`text-xl font-medium ${isDark ? 'text-white/80' : 'text-gray-600'}`}>6/12/2025 - 6/18/2025</p>
+        <p className={`text-xl font-medium ${isDark ? 'text-white/80' : 'text-gray-600'}`}>6/12-6/18</p>
       </div>
     </div>
   )
