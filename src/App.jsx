@@ -6,6 +6,8 @@ import LeaderboardModal from './components/LeaderboardModal'
 import Aurora from './components/Aurora'
 import DotGrid from './components/DotGrid'
 import { mockData } from './data/mockData'
+import { StagewiseToolbar } from '@stagewise/toolbar-react'
+import ReactPlugin from '@stagewise-plugins/react'
 
 function AppContent() {
   const [activeModal, setActiveModal] = useState(null)
@@ -21,6 +23,13 @@ function AppContent() {
 
   return (
     <>
+      {/* Stagewise Toolbar - Only in development */}
+      <StagewiseToolbar
+        config={{
+          plugins: [ReactPlugin]
+        }}
+      />
+      
       {/* Background effects for different themes */}
       {isDark ? (
         <Aurora 

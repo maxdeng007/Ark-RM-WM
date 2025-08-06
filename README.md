@@ -90,7 +90,7 @@ This React application fully supports browser extensions and development tools:
 
 - ✅ **Hot Module Replacement (HMR)**
 - ✅ **React Developer Tools**
-- ✅ **Browser extensions** (like React Developer Tools)
+- ✅ **Browser extensions** (like React Developer Tools and Stagewise)
 - ✅ **Source maps** for debugging
 - ✅ **ESLint integration**
 - ✅ **Modern build system**
