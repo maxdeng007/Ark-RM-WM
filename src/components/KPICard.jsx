@@ -56,10 +56,10 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
 
   const getStatusColor = (status) => {
     switch(status) {
-      case 'healthy': return 'text-green-400'
-      case 'warning': return 'text-blue-400'
-      case 'critical': return 'text-red-400'
-      default: return 'text-green-400'
+      case 'healthy': return 'text-green-400 bg-green-100 dark:bg-green-900/30'
+      case 'warning': return 'text-blue-400 bg-blue-100 dark:bg-blue-900/30'
+      case 'critical': return 'text-red-400 bg-red-100 dark:bg-red-900/30'
+      default: return 'text-green-400 bg-green-100 dark:bg-green-900/30'
     }
   }
 
@@ -73,7 +73,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
         {/* Front Side */}
         <div className={`flip-card-front ${getGradientClass()} text-white relative`}>
           {/* Status Label - Sticky Top Right */}
-          <div className={`absolute top-4 right-4 text-sm font-medium ${getStatusColor(data.progressStatus)}`}>
+          <div className={`absolute top-4 right-4 text-sm font-medium px-2 py-1 rounded-full ${getStatusColor(data.progressStatus)}`}>
             {getStatusLabel(data.progressStatus)}
           </div>
           
@@ -108,9 +108,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
 
           
           {type !== 'customers' && (
-            <div className="chart-container flex-1 flex items-center justify-center">
+            <div className="chart-container flex-1 flex items-center justify-center py-2">
               <div className="text-center">
-                <h4 className="text-white/80 text-sm mb-2">
+                <h4 className="text-white/80 text-sm mb-1">
                   {type === 'revenue' ? '该RM近8周的新增创收趋势图' : '该RM近8周的新增海投趋势图'}
                 </h4>
                 <Chart data={data.chartData} type={type} />
@@ -119,8 +119,8 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           )}
           
           {type === 'customers' && (
-            <div className="chart-container flex-1 flex flex-col justify-center p-4">
-              <h4 className="font-semibold text-white mb-4">
+            <div className="chart-container flex-1 flex flex-col justify-center p-4 py-2">
+              <h4 className="font-semibold text-white mb-2">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 即将达成客户
               </h4>
