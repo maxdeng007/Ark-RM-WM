@@ -45,19 +45,19 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
     }
   }
 
-  const getStatusIcon = (status) => {
+  const getStatusLabel = (status) => {
     switch(status) {
-      case 'healthy': return faCheck
-      case 'warning': return faExclamationTriangle
-      case 'critical': return faTimes
-      default: return faCheck
+      case 'healthy': return '进度领先'
+      case 'warning': return '进度正常'
+      case 'critical': return '进度落后'
+      default: return '进度领先'
     }
   }
 
   const getStatusColor = (status) => {
     switch(status) {
       case 'healthy': return 'text-green-400'
-      case 'warning': return 'text-yellow-400'
+      case 'warning': return 'text-blue-400'
       case 'critical': return 'text-red-400'
       default: return 'text-green-400'
     }
@@ -78,9 +78,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
             </div>
             <div className="text-right">
               <div className={`text-3xl font-bold mb-1 ${!isDark ? 'text-white' : ''}`}>{data.currentValue}</div>
-              {/* Status Icon */}
-              <div className={`text-xl ${getStatusColor(data.progressStatus)}`}>
-                <FontAwesomeIcon icon={getStatusIcon(data.progressStatus)} />
+              {/* Status Label */}
+              <div className={`text-sm font-medium ${getStatusColor(data.progressStatus)}`}>
+                {getStatusLabel(data.progressStatus)}
               </div>
             </div>
           </div>

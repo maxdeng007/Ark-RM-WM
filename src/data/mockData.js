@@ -21,7 +21,7 @@ export const mockData = {
     targetValue: "$22M",
     currentAchieved: "$2.64M",
     achievementRatio: "12%",
-    progressStatus: "warning", // "healthy", "warning", "critical"
+    progressStatus: "critical", // "healthy", "warning", "critical"
     chartData: [0.8, 1.0, 0.9, 1.1, 1.3, 1.1, 1.0, 1.2],
     ranking: {
       position: 2,
