@@ -15,20 +15,20 @@ export const mockData = {
     leaderboardTitle: "上周创收榜"
   },
   investment: {
-    title: "新增海投",
+    title: "上周新增海投",
     currentValue: "$1.2M",
-    growthRate: -5.2,
-    isPositive: false,
     targetProgress: 12,
     targetValue: "$22M",
-    evaluation: "下半年目标达成12% ($22M), 当前进度落后90%RM，需要努力！",
+    currentAchieved: "$2.64M",
+    achievementRatio: "12%",
+    progressStatus: "warning", // "healthy", "warning", "critical"
     chartData: [0.8, 1.0, 0.9, 1.1, 1.3, 1.1, 1.0, 1.2],
     ranking: {
       position: 2,
-      change: -1,
       trophy: "silver",
       totalValue: "$8.5M"
-    }
+    },
+    leaderboardTitle: "上周海投榜"
   },
   customers: {
     title: "新增黄金新客",
@@ -130,15 +130,13 @@ export const mockData = {
       ]
     },
     investment: {
-      title: "下半年海投榜",
+      title: "上周海投榜",
       icon: "globe",
       entries: [
         {
           name: "陈经理",
           avatar: "陈",
           value: "$12.5M",
-          change: 3.2,
-          isPositive: true,
           rank: 1,
           description: "海投冠军"
         },
@@ -146,8 +144,6 @@ export const mockData = {
           name: "我",
           avatar: "我",
           value: "$8.5M",
-          change: -1.2,
-          isPositive: false,
           rank: 2,
           description: "海投亚军",
           isMe: true
@@ -156,8 +152,6 @@ export const mockData = {
           name: "赵经理",
           avatar: "赵",
           value: "$7.8M",
-          change: 0.5,
-          isPositive: true,
           rank: 3,
           description: "海投季军"
         },
@@ -165,8 +159,6 @@ export const mockData = {
           name: "刘经理",
           avatar: "刘",
           value: "$6.9M",
-          change: 1.8,
-          isPositive: true,
           rank: 4,
           description: "第四名"
         },
@@ -174,8 +166,6 @@ export const mockData = {
           name: "孙经理",
           avatar: "孙",
           value: "$6.2M",
-          change: -0.7,
-          isPositive: false,
           rank: 5,
           description: "第五名"
         },
@@ -183,8 +173,6 @@ export const mockData = {
           name: "周经理",
           avatar: "周",
           value: "$5.8M",
-          change: 0.9,
-          isPositive: true,
           rank: 6,
           description: "第六名"
         },
@@ -192,8 +180,6 @@ export const mockData = {
           name: "吴经理",
           avatar: "吴",
           value: "$5.3M",
-          change: -1.4,
-          isPositive: false,
           rank: 7,
           description: "第七名"
         },
@@ -201,8 +187,6 @@ export const mockData = {
           name: "郑经理",
           avatar: "郑",
           value: "$4.9M",
-          change: 0.6,
-          isPositive: true,
           rank: 8,
           description: "第八名"
         },
@@ -210,8 +194,6 @@ export const mockData = {
           name: "王经理",
           avatar: "王",
           value: "$4.5M",
-          change: -0.3,
-          isPositive: false,
           rank: 9,
           description: "第九名"
         },
@@ -219,8 +201,6 @@ export const mockData = {
           name: "张经理",
           avatar: "张",
           value: "$4.1M",
-          change: 0.8,
-          isPositive: true,
           rank: 10,
           description: "第十名"
         }

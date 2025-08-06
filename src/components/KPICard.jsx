@@ -87,7 +87,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           
           <div className="mb-3">
             <div className="flex justify-between text-sm mb-2">
-              <span className="text-white/80">年度创收进度条</span>
+              <span className="text-white/80">
+                {type === 'revenue' ? '年度创收进度条' : '下半年海投目标达成进度条'}
+              </span>
               <span className="font-semibold">{data.achievementRatio}</span>
             </div>
             <div className="progress-bar">
@@ -107,7 +109,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           {type !== 'customers' && (
             <div className="chart-container flex-1 flex items-center justify-center">
               <div className="text-center">
-                <h4 className="text-white/80 text-sm mb-2">该RM近8周的新增创收趋势图</h4>
+                <h4 className="text-white/80 text-sm mb-2">
+                  {type === 'revenue' ? '该RM近8周的新增创收趋势图' : '该RM近8周的新增海投趋势图'}
+                </h4>
                 <Chart data={data.chartData} type={type} />
               </div>
             </div>
@@ -157,7 +161,9 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           )}
           
           <div className="text-center mt-2">
-            <p className="text-white/60 text-xs">你上周超越了80%RM，翻一查看更多</p>
+            <p className="text-white/60 text-xs">
+              {type === 'revenue' ? '你上周超越了80%RM，翻一查看更多' : '你上周超越了70%RM，翻一翻查看更多'}
+            </p>
           </div>
         </div>
         
@@ -166,7 +172,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           {/* Header with title and medal */}
           <div className="flex items-center justify-between mb-6">
             <h3 className="text-2xl font-bold">
-              {type === 'revenue' ? '上周排名' : '下半年排名'}
+              {type === 'revenue' ? '上周排名' : type === 'investment' ? '上周排名' : '下半年排名'}
             </h3>
             <span className="trophy text-3xl">{getTrophyIcon(data.ranking.trophy)}</span>
           </div>
@@ -195,7 +201,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           >
             <FontAwesomeIcon icon={faChartBar} className="mr-2" />
             {type === 'revenue' && data.leaderboardTitle}
-            {type === 'investment' && '下半年海投榜'}
+            {type === 'investment' && data.leaderboardTitle}
             {type === 'customers' && '下半年黄金新客榜'}
           </button>
           
