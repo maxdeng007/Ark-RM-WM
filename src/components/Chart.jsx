@@ -76,8 +76,8 @@ const Chart = ({ data, type }) => {
       pointBackgroundColor: colors.point,
       pointBorderColor: colors.point,
       pointBorderWidth: 2,
-      pointRadius: 6,
-      pointHoverRadius: 8
+      pointRadius: 3,
+      pointHoverRadius: 5
     }]
   }
 
@@ -132,11 +132,7 @@ const Chart = ({ data, type }) => {
     }
   }
 
-  return (
-    <div className="chart-container">
-      <Line data={chartData} options={options} />
-    </div>
-  )
+  return <Line data={chartData} options={options} />
 }
 
 export default Chart 

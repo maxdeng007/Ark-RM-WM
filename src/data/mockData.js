@@ -32,7 +32,7 @@ export const mockData = {
   },
   customers: {
     title: "上周新增黄金新客",
-    currentValue: "3",
+    currentValue: "3位",
     targetProgress: 75,
     targetValue: "15位",
     currentAchieved: "11.25位",

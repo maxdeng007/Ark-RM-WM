@@ -73,7 +73,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
         {/* Front Side */}
         <div className={`flip-card-front ${getGradientClass()} text-white relative`}>
           {/* Status Label - Sticky Top Right */}
-          <div className={`absolute top-3 right-3 text-xs font-medium px-2 py-1 rounded-full whitespace-nowrap ${getStatusColor(data.progressStatus)}`}>
+          <div className={`absolute top-3 right-3 text-sm font-medium px-3 py-2 rounded-full whitespace-nowrap w-fit mb-4 ${getStatusColor(data.progressStatus)}`}>
             {getStatusLabel(data.progressStatus)}
           </div>
           
@@ -89,7 +89,7 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           <div className="mb-3">
             <div className="flex justify-between text-sm mb-2">
               <span className="text-white/80">
-                {type === 'revenue' ? '年度创收进度条' : type === 'investment' ? '下半年海投目标达成进度条' : '下半年黄金新客目标达成进度条'}
+                当前进度
               </span>
               <span className="font-semibold">{data.achievementRatio}</span>
             </div>
@@ -109,18 +109,13 @@ const KPICard = ({ type, data, onShowLeaderboard }) => {
           
           {type !== 'customers' && (
             <div className="chart-container flex-1 flex items-center justify-center py-1">
-              <div className="text-center">
-                <h4 className="text-white/80 text-sm mb-1">
-                  {type === 'revenue' ? '该RM近8周的新增创收趋势图' : '该RM近8周的新增海投趋势图'}
-                </h4>
-                <Chart data={data.chartData} type={type} />
-              </div>
+              <Chart data={data.chartData} type={type} />
             </div>
           )}
           
           {type === 'customers' && (
-            <div className="chart-container flex-1 flex flex-col justify-center p-3 py-1">
-              <h4 className="font-semibold text-white mb-1">
+            <div className="chart-container flex-1 flex flex-col justify-center p-3">
+              <h4 className="font-semibold text-white mb-2 text-sm">
                 <FontAwesomeIcon icon={faUsers} className="mr-2" />
                 即将达成客户
               </h4>
